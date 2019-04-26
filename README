@@ -1,0 +1,9 @@
+Game made in CPP in visual studio using SFML library.
+How to Play?
+You need to gain points in this game by making 360 rolls in air.
+If you hit the wall of the screen you gain an extra score bonus.
+Controlls:
+D->move right
+A->move left
+W->jump
+Space->Make a roll
