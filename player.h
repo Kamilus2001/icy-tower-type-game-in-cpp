@@ -21,15 +21,16 @@ public:
 };
 void Player::gravity (std::vector<Ground> grounds) {
 	int i = 0;
-	onGround = false;
-	for (std::vector<Ground>::iterator it = grounds.begin(); it != grounds.end(); it++) {
-		if (grounds[i].x <= x+width && grounds[i].x + grounds[i].w >= x) {
-			if (grounds[i].y <= y + height && grounds[i].y+grounds[i].h>=y+height){
-				onGround = true;
-				heroObj.setPosition(x, grounds[i].y - height);
+	if(yvel>=0){
+		for (std::vector<Ground>::iterator it = grounds.begin(); it != grounds.end(); it++) {
+			if (grounds[i].x <= x + width && grounds[i].x + grounds[i].w >= x) {
+				if (grounds[i].y <= y + height && grounds[i].y + grounds[i].h >= y + height) {
+					onGround = true;
+					heroObj.setPosition(x, grounds[i].y - height);
+				}
 			}
+			i++;
 		}
-		i++;
 	}
 	
 	
@@ -62,8 +63,10 @@ bool Player::update(sf::RenderWindow &window, int &point, int &bonus,double game
 	if(onGround){
 		if (yvel >= 0) {
 			rotate = 0;
-			yvel = sf::Keyboard::isKeyPressed(sf::Keyboard::W);
-			yvel *= jump_speed;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+				yvel = jump_speed;
+				onGround = false;
+			}
 			heroObj.move(sf::Vector2f(0, gameSpeed));
 			bonus = 1;
 		}
