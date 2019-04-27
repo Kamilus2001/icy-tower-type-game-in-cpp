@@ -1,4 +1,4 @@
-﻿// FirstCPPGame.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
+// FirstCPPGame.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
 //
 #include "pch.h"
 #include <iostream>
@@ -13,11 +13,12 @@
 #include <fstream>
 Ground ground, ground1( 0, 300, 300), ground2( 400, 450, 400);
 std::vector<Ground>platforms;
-int score=0;
+int score=0, highScore
+;
 void newScore() {
 	std::fstream file;
 	std::string highS;
-	int highScore;
+
 	file.open("score.txt", std::ios::in);
 	std::getline(file, highS);
 	file.close();
@@ -97,7 +98,7 @@ int main()
 		window.clear();
 		playerObj.gravity(platforms);
 		if (playerObj.update(window, score, bonus, gameSpeed)) {
-			t1.setString("DEATH\n PRESS SPACE TO RESTART");
+			t1.setString("DEATH\n BEST SCORE: "+std::to_string(highScore)+"\nPRESS SPACE TO RESTART");
 			t1.setFillColor(sf::Color::Red);
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 				playerObj.heroObj.setPosition(sort(platforms), 0);
@@ -127,3 +128,4 @@ int main()
 //   4. Użyj okna Lista błędów, aby zobaczyć błędy
 //   5. Wybierz pozycję Projekt > Dodaj nowy element, aby utworzyć nowe pliki kodu, lub wybierz pozycję Projekt > Dodaj istniejący element, aby dodać istniejące pliku kodu do projektu
 //   6. Aby w przyszłości ponownie otworzyć ten projekt, przejdź do pozycji Plik > Otwórz > Projekt i wybierz plik sln
+
